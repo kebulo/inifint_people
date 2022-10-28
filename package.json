@@ -1,0 +1,22 @@
+{
+    "name": "infinite_people",
+    "version": "1.0.0",
+    "description": "",
+    "main": "index.js",
+    "scripts": {
+        "test": "echo \"Error: no test specified\" && exit 1",
+        "start": "node server/index.js"
+    },
+    "keywords": [],
+    "author": "",
+    "license": "ISC",
+    "dependencies": {
+        "cookie-parser": "^1.4.6",
+        "cors": "^2.8.5",
+        "express": "^4.18.2",
+        "morgan": "^1.10.0",
+        "nodaemon": "^0.0.5",
+        "socket.io": "^4.5.3",
+        "uuid": "^9.0.0"
+    }
+}
