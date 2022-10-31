@@ -1,0 +1,15 @@
+#message--form {
+    position: fixed;
+    bottom: 5px;
+    width: 100%;
+    margin: 0 auto;
+}
+
+#message--input {
+    width: 80%;
+    height: 30px;
+}
+
+#message--button {
+    width: 10%;
+}
