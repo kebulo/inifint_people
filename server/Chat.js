@@ -12,10 +12,10 @@ const messageExpirationTimeMS = 5*60 * 1000;
 
 class Connection {
     constructor(io, socket) {
-        console.log("It's working mano")
         this.socket = socket;
         this.io = io;
 
+        socket.on('connectUser', (data) => this.connectUser(data))
         socket.on('getMessages', () => this.getMessages());
         socket.on('message', (value) => this.handleMessage(value));
         socket.on('disconnect', () => this.disconnect());
@@ -23,7 +23,17 @@ class Connection {
             console.log(`connect_error due to ${err.message}`);
         });
     }
-    
+
+    connectUser(username) {
+        if (users.has(username)) {
+            console.log("This user has already being taken, please try with another")
+            //return null;
+        }
+
+        this.socket.nickname = username;
+        users.set(username, {name: username, id: uuidv4()});
+    }
+
     sendMessage(message) {
         console.log(message);
         this.io.sockets.emit('message', message);
@@ -34,10 +44,9 @@ class Connection {
     }
 
     handleMessage(value) {
-        console.log(value);
         const message = {
             id: uuidv4(),
-            user: users.get(this.socket) || defaultUser,
+            user: users.get(this.socket.nickname) || defaultUser,
             value,
             time: Date.now()
         };
