@@ -27,7 +27,7 @@ class Connection {
     connectUser(username) {
         if (users.has(username)) {
             console.log("This user has already being taken, please try with another")
-            //return null;
+            return null;
         }
 
         this.socket.nickname = username;

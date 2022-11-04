@@ -2,16 +2,17 @@ import React, { useEffect, useState } from 'react';
 import io from 'socket.io-client';
 import Messages from '../message/Messages';
 import MessageInput from '../message/MessageInput';
-import Users from '../Users/Users';
 
 import './App.css';
 
 function App() {
     const [socket, setSocket] = useState(null);
     const [value, setValue] = useState('');
-    
-    const sendUsername = () => {
-        console.log(value);
+
+    const submitForm = (e) => {
+        e.preventDefault();
+        socket.emit('connectUser', value);
+        setValue('');
     };
 
     useEffect(() => {
@@ -25,13 +26,18 @@ function App() {
             <header className="app-header">
                 React Chat
             </header>
-            <div>
-                <Users socket={socket} />
-            </div>
+
             { socket ? (
-                <div className="chat-container">
-                  <Messages socket={socket} />
-                  <MessageInput socket={socket} />
+                <div>
+                    <form id='users--form' onSubmit={submitForm}>
+                        <input id='username' className='username' value={value} onChange={(e) => {setValue(e.currentTarget.value);}} />
+                        <button id='users--button' type='submit'>Set Username</button>
+                    </form>
+
+                    <div className="chat-container">
+                        <Messages socket={socket} username={value} />
+                        <MessageInput socket={socket} />
+                    </div>
                 </div>
             ) : (
                 <div>Not Connected</div>

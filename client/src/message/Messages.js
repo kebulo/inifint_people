@@ -1,7 +1,10 @@
 import React, { useEffect, useState } from 'react';
 import './Messages.css';
 
-function Messages({ socket }) {
+function Messages(props) {
+    const socket = props.socket;
+    const username = props.username;
+    console.log(username);
     const [messages, setMessages] = useState({});
 
     useEffect(() => {
