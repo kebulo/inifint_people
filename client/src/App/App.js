@@ -9,9 +9,12 @@ function App() {
     const [socket, setSocket] = useState(null);
     const [value, setValue] = useState('');
 
+    const username = sessionStorage.getItem('username') || '';
+    console.log(username);
     const submitForm = (e) => {
         e.preventDefault();
         socket.emit('connectUser', value);
+        sessionStorage.setItem('username', value);
         setValue('');
     };
 
@@ -21,29 +24,50 @@ function App() {
         return () => newSocket.close();
     }, [setSocket]);
 
-    return (
-        <div className="App">
-            <header className="app-header">
-                React Chat
-            </header>
+    if (username != '') {
+        return (
+            <div className="App">
+                <header className="app-header">
+                    React Chat
+                </header>
 
-            { socket ? (
-                <div>
-                    <form id='users--form' onSubmit={submitForm}>
-                        <input id='username' className='username' value={value} onChange={(e) => {setValue(e.currentTarget.value);}} />
-                        <button id='users--button' type='submit'>Set Username</button>
-                    </form>
-
-                    <div className="chat-container">
-                        <Messages socket={socket} username={value} />
-                        <MessageInput socket={socket} />
+                { socket ? (
+                    <div>
+                        <div className="chat-container">
+                            <Messages socket={socket} />
+                            <MessageInput socket={socket} />
+                        </div>
                     </div>
-                </div>
-            ) : (
-                <div>Not Connected</div>
-            )}
-        </div>
-    );
+                ) : (
+                    <div>Not Connected</div>
+                )}
+            </div>
+        );
+    } else {
+        return (
+            <div className="App">
+                <header className="app-header">
+                    React Chat
+                </header>
+
+                { socket ? (
+                    <div>
+                        <form id='users--form' onSubmit={submitForm}>
+                            <input id='username' className='username' value={value} onChange={(e) => {setValue(e.currentTarget.value);}} />
+                            <button id='users--button' type='submit'>Set Username</button>
+                        </form>
+
+                        <div className="chat-container">
+                            <Messages socket={socket} username={value} />
+                            <MessageInput socket={socket} />
+                        </div>
+                    </div>
+                ) : (
+                    <div>Not Connected</div>
+                )}
+            </div>
+        );
+    }
 }
 
 export default App;

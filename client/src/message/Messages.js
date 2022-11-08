@@ -3,8 +3,8 @@ import './Messages.css';
 
 function Messages(props) {
     const socket = props.socket;
-    const username = props.username;
-    console.log(username);
+    const username = sessionStorage.getItem('username') || '';
+
     const [messages, setMessages] = useState({});
 
     useEffect(() => {

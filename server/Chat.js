@@ -14,6 +14,7 @@ class Connection {
     constructor(io, socket) {
         this.socket = socket;
         this.io = io;
+        this.username = '';
 
         socket.on('connectUser', (data) => this.connectUser(data))
         socket.on('getMessages', () => this.getMessages());
@@ -25,13 +26,17 @@ class Connection {
     }
 
     connectUser(username) {
-        if (users.has(username)) {
-            console.log("This user has already being taken, please try with another")
-            return null;
+        if (this.username === '' && !users.has(username)) {
+            sessionStorage.setItem('username', username);
+
+            this.socket.nickname = username;
+            users.set(username, {name: username, id: uuidv4()});
+
+            return true;
         }
 
-        this.socket.nickname = username;
-        users.set(username, {name: username, id: uuidv4()});
+        console.log("This user has already being taken, please try with another")
+        return false;
     }
 
     sendMessage(message) {

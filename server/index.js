@@ -13,6 +13,7 @@ var io = socketio(server,{
     methods: ['GET', 'POST']
   }
 });
+
 chat(io);
 
 server.listen(port);
