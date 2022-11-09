@@ -10,6 +10,41 @@
     height: 30px;
 }
 
-#message--button {
-    width: 10%;
+/*  Messages styles */
+.message-container{
+    display: inline-block;
+    padding: 10px;
+    width: 90%;
+}
+
+.message-container--align-right {
+    background-color: #67a6e4;
+    border-radius: 5px;
+    box-shadow: #c1c1c1 1px 1px 2px;
+    float: right;
+    padding: 8px;
+}
+
+.message-container--align-left {
+    background-color: #e6e6e6;
+    border-radius: 5px;
+    box-shadow: #c1c1c1 -1px 1px 2px;
+    float: left;
+    padding: 8px;
+}
+
+.message-container--align-right .user, .message-container--align-left .user {
+    display: inline-block;
+    text-align: left;
+    width: 100%;
+}
+
+.message-container--align-right .date, .message-container--align-left .date {
+    font-size: 10px;
+    text-align: right;
+}
+
+.message-container--align-right .message, .message-container--align-left .message {
+    padding: 5px;
+    text-align: left;
 }

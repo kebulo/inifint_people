@@ -18,7 +18,7 @@ class Connection {
 
         socket.on('connectUser', (data) => this.connectUser(data))
         socket.on('getMessages', () => this.getMessages());
-        socket.on('message', (value) => this.handleMessage(value));
+        socket.on('message', (message, username) => this.handleMessage(message, username));
         socket.on('disconnect', () => this.disconnect());
         socket.on('connect_error', (err) => {
             console.log(`connect_error due to ${err.message}`);
@@ -26,17 +26,12 @@ class Connection {
     }
 
     connectUser(username) {
-        if (this.username === '' && !users.has(username)) {
-            sessionStorage.setItem('username', username);
-
-            this.socket.nickname = username;
-            users.set(username, {name: username, id: uuidv4()});
-
-            return true;
+        if (users.has(username)) {
+            users.delete(username);
         }
 
-        console.log("This user has already being taken, please try with another")
-        return false;
+        this.socket.nickname = username;
+        users.set(username, {name: username, id: uuidv4()});
     }
 
     sendMessage(message) {
@@ -48,7 +43,11 @@ class Connection {
         messages.forEach((message) => this.sendMessage(message));
     }
 
-    handleMessage(value) {
+    handleMessage(value, username) {
+        console.log(username, users);
+        if (username) {
+            this.connectUser(username);
+        }
         const message = {
             id: uuidv4(),
             user: users.get(this.socket.nickname) || defaultUser,

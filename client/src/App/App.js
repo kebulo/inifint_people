@@ -10,7 +10,7 @@ function App() {
     const [value, setValue] = useState('');
 
     const username = sessionStorage.getItem('username') || '';
-    console.log(username);
+
     const submitForm = (e) => {
         e.preventDefault();
         socket.emit('connectUser', value);
@@ -35,7 +35,7 @@ function App() {
                     <div>
                         <div className="chat-container">
                             <Messages socket={socket} />
-                            <MessageInput socket={socket} />
+                            <MessageInput socket={socket} username={username} />
                         </div>
                     </div>
                 ) : (

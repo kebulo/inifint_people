@@ -39,14 +39,16 @@ function Messages(props) {
             {[...Object.values(messages)]
                 .sort((a, b) => a.time - b.time)
                 .map((message) => (
-                    <div
-                        key={message.id}
-                        className="message-container"
-                        title={`Sent at ${new Date(message.time).toLocaleTimeString()}`}
-                    >
-                        <span className="user">{message.user.name}:</span>
-                        <span className="message">{message.value}</span>
-                        <span className="date">{new Date(message.time).toLocaleTimeString()}</span>
+                    <div className='message-container'>
+                        <div
+                            key={message.id}
+                            className={(username == message.user.name)? "message-container--align-right" : "message-container--align-left"}
+                            title={`Sent at ${new Date(message.time).toLocaleTimeString()}`}
+                        >
+                            <small className="user">{message.user.name}:</small>
+                            <span className="message">{message.value}</span>
+                            <small className="date">{new Date(message.time).toLocaleTimeString()}</small>
+                        </div>
                     </div>
                 ))
             }
