@@ -1,7 +1,7 @@
-var chat = require('./chat');
+var chat = require('./Chat');
 var socketio = require('socket.io');
 
-var app = require('./app');
+var app = require('./App');
 var debug = require('debug')('chat-server:server');
 var http = require('http');
 var port = normalizePort(process.env.PORT || '3000');
