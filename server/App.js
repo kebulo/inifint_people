@@ -16,8 +16,11 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
+app.use(express.static(path.resolve(__dirname, '../client/build')));
 app.use(session({secret: 'ssshhhhh',saveUninitialized: true,resave: true}));
-
+app.get('*', (req, res) => {
+    res.sendFile(path.resolve(__dirname, '../client/build', 'index.html'));
+});
 app.use('/', indexRouter);
 app.use('/users', usersRouter);
 
