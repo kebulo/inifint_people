@@ -22,8 +22,8 @@ function App() {
     };
 
     useEffect(() => {
-        console.log(`http://${window.location.host}`);
-        const newSocket = io(`http://${window.location.host}`);
+        console.log(`https://${window.location.host}`);
+        const newSocket = io(`https://${window.location.host}`);
         setSocket(newSocket);
         return () => newSocket.close();
     }, [setSocket]);
