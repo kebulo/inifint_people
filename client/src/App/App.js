@@ -6,11 +6,8 @@ import MessageInput from '../message/MessageInput';
 import './App.css';
 
 function App() {
-    console.log(process.env.REACT_APP_PORT);
     const [socket, setSocket] = useState(null);
     const [value, setValue] = useState('');
-    const port = process.env.PORT || process.env.REACT_APP_PORT || 3000;
-    console.log(port);
 
     const username = sessionStorage.getItem('username') || '';
 
@@ -22,7 +19,6 @@ function App() {
     };
 
     useEffect(() => {
-        console.log(`https://${window.location.host}`);
         const newSocket = io(`https://${window.location.host}`);
         setSocket(newSocket);
         return () => newSocket.close();

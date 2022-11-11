@@ -35,7 +35,6 @@ class Connection {
     }
 
     sendMessage(message) {
-        console.log(message);
         this.io.sockets.emit('message', message);
     }
     
@@ -44,7 +43,6 @@ class Connection {
     }
 
     handleMessage(value, username) {
-        console.log(username, users);
         if (username) {
             this.connectUser(username);
         }
