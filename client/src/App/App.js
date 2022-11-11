@@ -10,6 +10,7 @@ function App() {
     const [socket, setSocket] = useState(null);
     const [value, setValue] = useState('');
     const port = process.env.PORT || process.env.REACT_APP_PORT || 3000;
+    console.log(port);
 
     const username = sessionStorage.getItem('username') || '';
 
@@ -21,7 +22,8 @@ function App() {
     };
 
     useEffect(() => {
-        const newSocket = io(`http://${window.location.hostname}:${port}`);
+        console.log(`http://${window.location.host}`);
+        const newSocket = io(`http://${window.location.host}`);
         setSocket(newSocket);
         return () => newSocket.close();
     }, [setSocket]);
